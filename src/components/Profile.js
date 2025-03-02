@@ -40,45 +40,37 @@ export const Profile = () => {
                             <>
                             <Grid.Row>
                             <Grid.Column>
-                                <Segment raised>
-                                <Header textAlign="center" as="h2" icon>
-                                    <Icon inverted circular name="user outline" />
-                                    <Header.Content>
-                                        {u.firstname + " " + u.lastname}
-                                    </Header.Content>
-                                </Header>
+                                <Segment size="large" raised>
+                                    <Header textAlign="center" as="h4" icon>
+                                        <Icon inverted circular name="user outline" />
+                                            {u.firstname + " " + u.lastname}
+                                    </Header>
                                 </Segment>
                             </Grid.Column>
                             <Grid.Column>
-                                <Segment raised>
-                                <Header textAlign="center" as="h2" icon>
-                                    <Icon inverted circular name="phone" />
-                                    <Header.Content>
-                                        {u.phone}
-                                    </Header.Content>
-                                </Header>
+                                <Segment size="large" raised>
+                                    <Header textAlign="center" as="h4" icon>
+                                        <Icon inverted circular name="phone" />
+                                            {u.phone}
+                                    </Header>
                                 </Segment>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <Segment raised>
-                                <Header textAlign="center" as="h2" icon>
-                                    <Icon inverted circular name="mail outline" />
-                                    <Header.Content>
-                                        {u.email}
-                                    </Header.Content>
-                                </Header>
+                                <Segment size="large" raised>
+                                    <Header textAlign="center" as="h4" icon>
+                                        <Icon inverted circular name="mail outline" />
+                                            {u.email}
+                                    </Header>
                                 </Segment>
                             </Grid.Column>
                             <Grid.Column>
-                                <Segment raised>
-                                <Header textAlign="center" as="h2" icon>
-                                    <Icon inverted circular name="address card outline" />
-                                    <Header.Content>
-                                        {u.address}
-                                    </Header.Content>
-                                </Header>
+                                <Segment size="large" raised>
+                                    <Header textAlign="center" as="h4" icon>
+                                        <Icon inverted circular name="address card outline" />
+                                            {u.address}
+                                    </Header>
                                 </Segment>
                             </Grid.Column>
                         </Grid.Row>

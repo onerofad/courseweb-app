@@ -1,146 +1,104 @@
 import { Grid, Header, Segment, Card, Icon, Rating} from "semantic-ui-react"
-import Carousel from "react-multi-carousel"
 import 'react-multi-carousel/lib/styles.css'
-import { Link } from "react-router-dom"
+import { getMyLearnings, getTutorials } from "../API/sila_api"
+import { useState, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+
 
 export const DashboardCourses = () => {
 
-    const responsive = {
-        superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 5
-        },
-        desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2
-        },
-        mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
-        }
-    };
+    const [learnings, setlearnings] = useState([])
 
+    const navigate = useNavigate()
+    
+    const param = useParams()
+    
+    useEffect(() => {
+        getAllTutorials()
+        getlearnings()
+        //getLearn()
+    },[])
+    
+    const getlearnings = () => {
+        getMyLearnings().get("/")
+        .then(res => setlearnings(res.data))
+    }
+
+    const [tutorials, setutorials] = useState([])
+    
+    const getAllTutorials = () => {
+        getTutorials().get("/")
+        .then(res => setutorials(res.data))
+    }
+
+    const learning = learnings.filter(l => l.emailId === sessionStorage.getItem("emailId"))
+
+    const learning_list = []
+    tutorials.forEach(getLearn);
+    function getLearn(tutorial){
+        let learn = learning.find(l => l.tutorial_id === tutorial.id)
+        if(learn){
+            learning_list.push(tutorial)
+        }
+    }
+      let  learningList = learning_list.map(t => (
+            <Grid.Column width={4}>
+                <Card raised>
+                    <img src={t.image} />
+                        <Card.Content>
+                            <Card.Header as="h4">
+                                {t.title}
+                            </Card.Header>
+                            <Card.Meta>
+                                <span className='date'>{t.owner}</span>
+                            </Card.Meta>
+                            <Card.Description>
+                                <Header as="h3">
+                                    4.2  <Rating icon="star" defaultRating={3} maxRating={5} />
+                                    <Header as="h3" sub floated="right">(2,000)</Header>
+                                </Header> 
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content>
+                            <Header as="h4" icon>
+                                <Icon 
+                                    onClick={() => navigate("/course_page/" + t.title)} 
+                                    color="blue" 
+                                    size="large" 
+                                    name="video" 
+                                    link={true}
+                                />
+                                Watch Tutorial
+                            </Header>
+                        </Card.Content>
+                </Card>
+            </Grid.Column>
+        ))
+    
+        
     return(
         <Segment vertical style={{paddingTop: 30, margin: 0}}>
             <Grid verticalAlign="middle" container>
                 <Grid.Row>
                     <Grid.Column>
                         <Header as="h2">
-                            Recommended Video Tutorials and Courses For you
+                            My Learning Tutorials on CourseWeb
                             <Header.Subheader>
-                                These video courses are recommended for your learning
+                                These tutorial courses are valuable and will enhance your skills and learning
                             </Header.Subheader>
                         </Header>
                         <Segment vertical>
-                        <Carousel responsive={responsive}>
-                            <div>
-                            <Card raised>
-                                <img alt="" src="/images/course2.jpg" />
-                                    <Card.Content>
-                                    <Card.Header>
-                                        <Link to="/course_page" style={{color: '#000'}}>
-                                            Web development course with React + Django rest framework
-                                        </Link>
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>By John Doe</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Header as="h3">
-                                            4.2  <Rating icon="star" defaultRating={3} maxRating={5} />
-                                        </Header> 
-                                    </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            <Icon name='dollar' />
-                                            19,500
-                                        </Card.Header>
-                                    </Card.Content>
-                                </Card>
-                                
-                            </div>
-                            <div>
-                            <Card raised>
-                                <img alt="" src="/images/course2.jpg" />
-                                    <Card.Content>
-                                    <Card.Header>
-                                        Web development course with React + Django rest framework
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>By John Doe</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Header as="h3">
-                                            4.2  <Rating icon="star" defaultRating={3} maxRating={5} />
-                                        </Header> 
-                                    </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            <Icon name='dollar' />
-                                            19,500
-                                        </Card.Header>
-                                    </Card.Content>
-                                </Card>
-                            </div>
-                            <div>
-                            <Card raised>
-                                <img alt="" src="/images/course2.jpg" />
-                                    <Card.Content>
-                                    <Card.Header>
-                                        Web development course with React + Django rest framework
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>By John Doe</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Header as="h3">
-                                            4.2  <Rating icon="star" defaultRating={3} maxRating={5} />
-                                        </Header> 
-                                    </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            <Icon name='dollar' />
-                                            19,500
-                                        </Card.Header>
-                                    </Card.Content>
-                                </Card>
-                            </div>
-                            <div>
-                            <Card raised>
-                                <img alt="" src="/images/course2.jpg" />
-                                    <Card.Content>
-                                    <Card.Header>
-                                        Web development course with React + Django rest framework
-                                    </Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>By John Doe</span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                        <Header as="h3">
-                                            4.2  <Rating icon="star" defaultRating={3} maxRating={5} />
-                                        </Header> 
-                                    </Card.Description>
-                                    </Card.Content>
-                                    <Card.Content>
-                                        <Card.Header>
-                                            <Icon name='dollar' />
-                                            19,500
-                                        </Card.Header>
-                                    </Card.Content>
-                                </Card>
-                                <br/>
-                            </div>
-                           
-                        </Carousel>;
-
+                            <Grid>
+                                <Grid.Row>
+                                    {
+                                        (learningList) ? 
+                                            learningList : 
+                                            <Header>
+                                                You have not bought any course
+                                            </Header>
+                                    }
+                                </Grid.Row>
+                            </Grid>
                         </Segment>  
                     </Grid.Column>
                 </Grid.Row>

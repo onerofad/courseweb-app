@@ -23,4 +23,63 @@ import axios from "axios";
         )
     }
 
-    
+    export function getTutorials(){
+        return(
+            axios.create({
+                baseURL: 'https://backend-app-pied.vercel.app/api/tutorials',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                }
+            })
+        )
+    }
+
+    export function getContent(){
+        return(
+            axios.create({
+                baseURL: 'https://backend-app-pied.vercel.app/api/contents',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                }
+            })
+        )
+    }
+
+    export function getCartItems(){
+        return(
+            axios.create({
+                baseURL: 'https://backend-app-pied.vercel.app/api/cartitems',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                }
+            })
+        )
+    }
+
+    export function getMyLearnings(){
+        return(
+            axios.create({
+                baseURL: 'https://backend-app-pied.vercel.app/api/mylearnings',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                }
+            })
+        )
+    }
+
+    export function getTutorialVideos(){
+        return(
+            axios.create({
+                baseURL: 'https://backend-app-pied.vercel.app/api/contents',
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                }
+            })
+        )
+    }
+

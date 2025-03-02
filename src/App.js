@@ -6,6 +6,8 @@ import { Login } from "./components/Login";
 import { Dashboard } from "./components/Dashboard";
 import { Profile } from "./components/Profile";
 import { CoursePage } from "./components/CoursePage";
+import { CourseDescriptionPage } from "./components/CourseDescriptionPage";
+import { BuyNow } from "./components/BuyNow";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -23,11 +25,13 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Home />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="login" element={<Login />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="course_page" element={<CoursePage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/course_page/:tutorial" element={<CoursePage />} />
+            <Route path="/coursedescription/:title/:id" element={<CourseDescriptionPage />} />
+            <Route path="/buynow" element={<BuyNow />} />
 
 
           </Routes>
@@ -38,13 +42,13 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Home />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="login" element={<Login />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="course_page" element={<CoursePage />} />
-
-
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/course_page/:tutorial" element={<CoursePage />} />
+            <Route path="/coursedescription/:title/:id" element={<CourseDescriptionPage />} />
+            <Route path="/buynow" element={<BuyNow />} />
 
           </Routes>
         </BrowserRouter>

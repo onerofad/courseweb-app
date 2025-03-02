@@ -3,7 +3,7 @@ import { Grid, Header, Icon, Image, Menu, Segment } from "semantic-ui-react"
 export const HeadingPage = () => {
 
     return(
-        <Segment vertical style={{minHeight: 300, paddingTop: 0, backgroundColor: '#f6f6f6'}}>
+        <Segment vertical style={{minHeight: 300, paddingTop: 30, paddingBottom: 30, backgroundColor: '#f6f6f6'}}>
             <Grid verticalAlign="middle" stackable container divided>
                 <Grid.Row>
                     <Grid.Column width={10}>

@@ -2,8 +2,9 @@ import { Grid, Header, Segment, Button, List, Image, Icon, Input } from "semanti
 import { Navbar } from "./Navbar"
 import {Footer} from './Footer'
 import { useEffect, useState } from "react"
-import { getVideos } from "../API/sila_api"
+import { getTutorialVideos, getVideos, TutorialVideos } from "../API/sila_api"
 import ReactPlayer from "react-player"
+import { useParams, useNavigate } from "react-router-dom"
 
 export const CoursePage = () => {
 
@@ -12,11 +13,15 @@ export const CoursePage = () => {
     const [active, setactive] = useState(false)
     const [playing, setplaying] = useState(false)
     const [volume, setVolume] = useState(0.1)
-    const [courseTitle, setcourseTitle] = useState("Intro to programming in C++")
+    const [courseTitle, setcourseTitle] = useState("")
     const [duration, setDuration] = useState(0)
     const [played, setPlayed] = useState(0)
     const [muted, setMuted] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    const param = useParams()
+
+    const navigate = useNavigate()
 
     const handleVideo = (video) =>{
         seturl(video)
@@ -42,7 +47,7 @@ export const CoursePage = () => {
     }, [videos])
 
     const getAllVideos = () => {
-        getVideos().get("/")
+        getTutorialVideos().get("/")
         .then(response => setvideos(response.data))
     } 
 
@@ -50,20 +55,25 @@ export const CoursePage = () => {
         alert("hello")
     }
 
+    const video = videos.filter(v => v.tutorial === param.tutorial)
     let videoList
-    videoList  = videos.map(m => (
+    videoList  = video.map(m => (
         <List.Item 
-            onClick={() => handleVideo(m.uploaded_video)}
-            id="1"
-            active={active}
+            onClick={() => {
+                handleVideo(m.content_video)
+                setcourseTitle(m.course_content)
+            }}  
+            id={m.id}
+            secondary
         >
+
             <Image size="mini" src="/images/course2.jpg" />
             <List.Content>
                 <List.Header>
-                    {m.fileowner}
+                    {m.course_content}
                 </List.Header>
                 <List.Description>
-                     {m.file_date}
+                     {m.sub_content}
                 </List.Description>
                 
             </List.Content>
@@ -84,7 +94,7 @@ export const CoursePage = () => {
                                 <Header as="h2" content="Course Description" />
                             </Grid.Column>
                             <Grid.Column textAlign="right">
-                                <Button style={{backgroundColor: '#fff'}}>
+                                {/*<Button style={{backgroundColor: '#fff'}}>
                                     Start
                                 </Button>
                                 <Button style={{backgroundColor: '#fff'}}>
@@ -94,9 +104,10 @@ export const CoursePage = () => {
                                 <Button style={{backgroundColor: '#fff'}}>
                                     Next
                                     <Icon name="arrow right" />
-                                </Button>
-                                <Button secondary>
-                                    End
+                                </Button>*/}
+                                <Button secondary onClick={() => navigate("/dashboard")}>
+                                    <Icon name="arrow left" />
+                                    Go Back
                                 </Button>
                             </Grid.Column>
                         </Grid.Row>
@@ -250,7 +261,7 @@ export const CoursePage = () => {
                                         </Grid.Column>
                                         <Grid.Column width={6}>
                                             <Header dividing content="Course Content" />
-                                            <List verticalAlign="middle" link ordered relaxed divided style={{height: 420, overflowY: 'auto'}}>
+                                            <List onItemClick={videos} verticalAlign="middle" selection link ordered relaxed divided style={{height: 420, overflowY: 'auto'}}>
                                                 {videoList}
                                             </List>
                                         </Grid.Column>

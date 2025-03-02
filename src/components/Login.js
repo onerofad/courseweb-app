@@ -49,6 +49,9 @@ export const Login = () => {
             setTimeout(() => {
                 if(user.email === email && user.password === password){
                     sessionStorage.setItem("emailId", email)
+                    sessionStorage.setItem("fname", user.firstname)
+                    sessionStorage.setItem("lname", user.lastname)
+
                     navigate("/dashboard")
                 }
                
@@ -96,7 +99,6 @@ export const Login = () => {
                                     onClick={loginBtn}
                                     loading={loading}
                                 >
-                                <Icon name={check}  />
                                     Log in
                                 </Button>
                                 <Link to="/signup">Sign up</Link>

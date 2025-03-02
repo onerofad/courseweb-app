@@ -1,0 +1,16 @@
+.paystack-button {
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 0.1rem;
+    /* text-transform: uppercase; */
+    background-color: #000;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    width: 50%;
+    height: 40px;
+   /* margin-top: 40px; */
+    font-family: "Poppins";
+  }

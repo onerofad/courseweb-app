@@ -27,14 +27,14 @@ export const Signup = () => {
     const [phone, setphone] = useState("")
     const [password, setpassword] = useState("")
     const [confirmpassword, setconfirmpassword] = useState("")
-    const [address, setaddress] =useState("")
+    const [dob, setdob] =useState("")
 
 
     const [emailError, setemailError] = useState(false)
     const [firstnameError, setfirstnameError] = useState(false)
     const [lastnameError, setlastnameError] = useState(false)
     const [phoneError, setphoneError] = useState(false)
-    const [addressError, setaddressError] = useState(false)
+    const [dobError, setdobError] = useState(false)
     const [passwordError, setpasswordError] = useState(false)
     const [confirmpasswordError, setconfirmpasswordError] = useState(false)
 
@@ -42,25 +42,25 @@ export const Signup = () => {
     const handleFirstname = (e) => setfirstname(e.target.value)
     const handleLastname = (e) => setlastname(e.target.value)
     const handlePhone = (e) => setphone(e.target.value)
-    const handleAddress = (e) => setaddress(e.target.value)
+    const handleDob = (e, {value}) => setdob(value)
 
     const handlePassword = (e) => setpassword(e.target.value)
     const handleConfirmpassword = (e) => setconfirmpassword(e.target.value)
 
     const [loading, setloading] = useState(false)
 
-    const [check, setcheck] = useState(false)
+    const [check, setcheck] = useState("")
 
     const signupBtn = () => {
         const user = users.find(e => e.email === email)
-        if(email === ''){
-            setemailError({content: 'Email is empty', pointing: 'below'})
-        }else if(user){
-            setemailError({content: 'Email taken', pointing: 'below'})
-        }else if(firstname === ''){
+        if(firstname === ''){
             setfirstnameError({content: 'First name is empty', pointing: 'below'})
         }else if(lastname === ''){
             setlastnameError({content: 'Last name is empty', pointing: 'below'})
+        }else if(email === ''){
+            setemailError({content: 'Email is empty', pointing: 'below'})
+        }else if(user){
+            setemailError({content: 'Email taken', pointing: 'below'})
         }else if(phone === ''){
             setphoneError({content: 'Phone number is empty', pointing: 'below'})
         }else if(password === ''){
@@ -69,23 +69,21 @@ export const Signup = () => {
             setconfirmpasswordError({content: 'confirm password is empty', pointing: 'below'})
         }else if(password !== confirmpassword){
             setconfirmpasswordError({content: 'Password mismatch', pointing: 'below'})
-        }else if(address === ''){
-            setaddressError({content: 'Address is Empty', pointing: 'below'})
         }else{
             setloading(true)
             setTimeout(() => {
-                let items = {email, password, firstname, lastname, phone, address}
+                let items = {email, password, firstname, lastname, phone}
                 getCourseWebUsers().post("/", items)
                 .then(() => {
                     setloading(false)
-                    setcheck(true)
+                    setcheck("check")
                     setemail("")
                     setpassword("")
                     setconfirmpassword("")
                     setfirstname("")
                     setlastname("")
                     setphone("")
-                    setaddress("")
+                    setdob("")
 
                 })
             }, 3000)
@@ -109,16 +107,6 @@ export const Signup = () => {
                               <Form.Group widths="equal">
                                 <Form.Field>
                                     <Form.Input 
-                                        placeholder="Email"
-                                        type="email"
-                                        value={email}
-                                        onChange={handleEmail}
-                                        error={emailError}
-                                        onClick={() => setemailError(false)}
-                                    />
-                                </Form.Field>
-                                <Form.Field>
-                                    <Form.Input 
                                         placeholder="First Name"
                                         type="text"
                                         value={firstname}
@@ -127,8 +115,6 @@ export const Signup = () => {
                                         onClick={() => setfirstnameError(false)}
                                     />
                                 </Form.Field>
-                              </Form.Group>
-                              <Form.Group widths="equal">
                                 <Form.Field>
                                     <Form.Input 
                                         placeholder="Last Name"
@@ -137,6 +123,18 @@ export const Signup = () => {
                                         onChange={handleLastname}
                                         error={lastnameError}
                                         onClick={() => setlastnameError(false)}
+                                    />
+                                </Form.Field>
+                              </Form.Group>
+                              <Form.Group widths="equal">
+                              <Form.Field>
+                                    <Form.Input 
+                                        placeholder="Email"
+                                        type="email"
+                                        value={email}
+                                        onChange={handleEmail}
+                                        error={emailError}
+                                        onClick={() => setemailError(false)}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -173,15 +171,16 @@ export const Signup = () => {
                                     />
                                 </Form.Field>
                               </Form.Group>
-                                <Form.Field>
-                                    <Form.TextArea
-                                        placeholder="Address"
-                                        value={address}
-                                        error={addressError}
-                                        onChange={handleAddress}
-                                        onClick={() => setaddressError(false)}
+                                {/*<Form.Field>
+                                    <Form.Input
+                                        placeholder="Date of Birth"
+                                        type="date"
+                                        value={dob}
+                                        error={dobError}
+                                        onChange={handleDob}
+                                        onClick={() => setdobError(false)}
                                     />
-                                </Form.Field>
+                                </Form.Field>*/}
                                 <Button
                                     secondary
                                     size="large"
